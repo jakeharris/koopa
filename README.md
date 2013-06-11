@@ -9,9 +9,7 @@ Objective
 =====
 Your assignment is to write a shell: a program that starts up other programs. Your shell, called robust-shell, will read input lines from standard input, parse them into a command name and arguments, and then start a new process running that command. When you start your shell, it will provide a prompt and then wait for a command line of the form:
 
-'''
-foobar -l this and that
-'''
+    foobar -l this and that
 
 This starts a program stored in a file called "foobar" with four arguments: "-l", "this", "and", and "that".
 
@@ -21,24 +19,23 @@ Your shell will loop (until end-of-file) waiting for a line from standard input.
 
 Each line has a command and zero or more arguments, and is of the form:
 
-'''
-cmd arg1 ... argk
-'''
+    cmd arg1 ... argk
 
 Each of these items is separated by one or more blank characters (spaces or tabs). There is one command per input line. Your shell will [fork][1] a child process and then overlay itself ([exec][2]) the command in the file named by "cmd". The shell parent process will default to waiting for the child process. Optionally, at the end of any command input, can be a "&" character, which means that the parent process does NOT wait for the child process to complete before prompting the next command.
 
-The command line is processed (by the shell) into a list of character strings, one for each argument (including the command name). These arguments are passed as parameters to the exec command (you'll probably want to use "execvp").
+The command line is processed (by the shell) into a list of character strings, one for each argument (including the command name). These arguments are passed as parameters to the exec command (you'll probably want to use [execvp][3]).
 
 Make sure that your program can handle input lines that have very long command names and arguments. You must also be able to deal gracefully with command lines that are arbitrarily long; you must be able to gracefully reject them.
 
 You will want to make sure that you break your program up into modules, such that each module represents a sensible type abstraction.
 
-[1]: http://linux.die.net/man/2/fork/		"fork man page"
-[2]: http://linux.die.net/man/3/exec/		"exec man page"
+[1]: http://linux.die.net/man/2/fork/		"fork"
+[2]: http://linux.die.net/man/3/exec/		"exec"
+[3]: http://linux.die.net/man/3/execvp/ "execvp"
 
 Testing Your Program
 =====
-First, test that your program can start up simple programs and pass parameters to them. Then test it by running standard Linux utilities like [ls][3].
+First, test that your program can start up simple programs and pass parameters to them. Then test it by running standard Linux utilities like [ls][4].
 
 Your program should not crash, no matter how weird the input. For example, suppose that the input has zero-value characters (bytes) or lines that have 1,000,000 characters? As a result, you may not be able to use the input routines that first occur to you.
 
@@ -46,7 +43,7 @@ To test the robustness of your program, you should run it against files that ocn
 
 A test list of all the commands and parameters will be given to you. Your submission must include the results of running these commands in your robust-shell.
 
-[3]: http://linux.die.net/man/1/ls/		"ls man page"
+[4]: http://linux.die.net/man/1/ls/		"ls"
 
 Deliverables
 =====
