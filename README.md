@@ -7,31 +7,31 @@ Authors: Jake Harris (javakatdesign@gmail.com), Clay Miller (clay@smockle.com), 
 
 Table of Contents:
 =====
-[1. Project Summary] [5]
-[2. To-Do List] [6]
-[3. Assignment Handout] [7]
+1. [Project Summary] [5]
+2. [To-Do List] [6]
+3. [Assignment Handout] [7]
 
-[5]: #project-summary "1. Project Summary"
-[6]: #to-do-list "2. To-Do List"
-[7]: #assignment-handout "3. Assignment Handout"
+[5]: #project-summary "Project Summary"
+[6]: #to-do-list "To-Do List"
+[7]: #assignment-handout "Assignment Handout"
 
 
 
-1. Project Summary
+Project Summary
 =====
 koopa is an exercise in fully understanding shell programs like /bin/bash. As such, it should be as robust and deep as possible, but still learnable and reproducible in less than a week by a newbie in OS development (especially since we only have that long to write it!).
 
-2. To-Do List
+To-Do List
 =====
-- [ ] Take in a string of parameters
-- [ ] Split string, delimited by spaces, into substrings, and store those in a data structure of a length determined at run-time
-- [ ] Create a "job" data structure that runs one command and passes in all the relevant parameters
-- [ ] Using the split string, create a series of jobs, connectable via the & operator.
-- [ ] Grab the return value of a command and put it somewhere.
-- [ ] Reorder jobs based on the location and implications of the piping and redirect operators.
+- Take in a string of parameters
+- Split string, delimited by spaces, into substrings, and store those in a data structure of a length determined at run-time
+- Create a "job" data structure that runs one command and passes in all the relevant parameters
+- Using the split string, create a series of jobs, connectable via the & operator.
+- Grab the return value of a command and put it somewhere.
+- Reorder jobs based on the location and implications of the piping and redirect operators.
 
 
-3. Assignment Handout
+Assignment Handout
 =====
 The design spec from the handout:
 
