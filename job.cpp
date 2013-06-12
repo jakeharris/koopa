@@ -1,4 +1,3 @@
-
 using namespace koopa;
 
 /* A job is a pipeline of processes.  */
