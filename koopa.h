@@ -10,7 +10,7 @@ void init_shell();
 /* Divide args into job(s).
  * Execute args.
  */
-void launch_args(args);
+void launch_args(string args);
 
 /* Divide job into process(es).
  * Execute job.
