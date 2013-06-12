@@ -1,56 +1,59 @@
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+#include "koopa.h"
+#include <sys/types.h>
+#include <termios.h>
 #include <unistd.h>
 
-using namespace std;
+using namespace koopa;
 
-struct node{
-	node *next;
-};
+pid_t shell_pgid;
+struct termios shell_tmodes;
+int shell_terminal;
+int shell_is_interactive;
 
-struct arg : node{
-	string argument;
-	
-	char* to_a(){
-		return 0;
-	}
-};
+int main() {
+  init_shell();
 
-struct job : node{
-	char* command;
-	arg *root;
+  char *argv[];
+  getline (cin, argv);
 
-	bool hasNext(){
-		return next != NULL;
-	}
-};
+  for(int x = 0; x < argv.size(); x++){
+     cout << argv[x] << endl;
+  } 
 
-void separate_into_jobs(int argc, char *argv[], job *root){
-	root->command = argv[0];
-	arg *walker = root->root;
-	for(int x = 1; x < argc && argv[x] != "&"; x++){
-		walker->argument = argv[x];
-		walker->next = new arg;
-		walker = walker->next;
-	}
+  return 0;
 }
 
-bool run_job(job *job){
-	return execv(*job->command, job->root->to_a);
+void init_shell() {
+     
+  /* See if we are running interactively.  */
+  shell_terminal = STDIN_FILENO;
+  shell_is_interactive = isatty (shell_terminal);
+     
+  if (shell_is_interactive) {
+    /* Loop until we are in the foreground.  */
+    while (tcgetpgrp (shell_terminal) != (shell_pgid = getpgrp ()))
+      kill (- shell_pgid, SIGTTIN);
+     
+    /* Ignore interactive and job-control signals.  */
+    signal (SIGINT, SIG_IGN);
+    signal (SIGQUIT, SIG_IGN);
+    signal (SIGTSTP, SIG_IGN);
+    signal (SIGTTIN, SIG_IGN);
+    signal (SIGTTOU, SIG_IGN);
+    signal (SIGCHLD, SIG_IGN);
+     
+    /* Put ourselves in our own process group.  */
+    shell_pgid = getpid ();
+    if (setpgid (shell_pgid, shell_pgid) < 0)
+    {
+       perror ("Couldn't put the shell in its own process group");
+       exit (1);
+    }
+     
+    /* Grab control of the terminal.  */
+    tcsetpgrp (shell_terminal, shell_pgid);
+
+    /* Save default terminal attributes for shell.  */
+    tcgetattr (shell_terminal, &shell_tmodes);
+  }
 }
-
-void run_jobs(job *root, job *red){
-	while(run_job(red) && red->hasNext()){
-		red = red->next;
-	}
-}
-
-int main(int argc, char *argv[]){
-	job *root;
-	job *red;
-	separate_into_jobs(argc, argv, root);
-	run_jobs(root, red);	
-}
-
-
