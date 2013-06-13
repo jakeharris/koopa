@@ -1,5 +1,7 @@
 #include "koopa.h" 
 
+#include <sstream>
+
 using namespace koopa; 
 
 pid_t shell_pgid; 
@@ -51,16 +53,28 @@ int main() {
 }
 
 void koopa::launch_args() {
+  std::string curr = "";
   std::string argv = "";
+  std::string cmd_s = "";
+  const char* cmd = "";
 
-  while(argv.substr(0, 4) != "exit"){
-
+  while(cmd_s.substr(0, 4) != "exit"){
+    argv = "";
+    cmd = "";
     std::cout << "koopa$ ";
-    std::getline(std::cin, argv);
-
-    for(int x = 0; x < argv.size(); x++) {
-       std::cout << argv[x] << std::endl;
-    } 
+    std::getline(std::cin, curr);
+    std::istringstream line(curr);
+    while(std::getline(line, curr, ' ')){
+      if(cmd == "" || cmd == NULL){
+        cmd = (char*)curr.c_str();
+        cmd_s = curr;
+      }
+      argv += curr + " ";
+    }
+    for(int x = 0; x < argv.size(); x++){
+      std::cout << argv[x] << std::endl;
+    }
+    /* execv(cmd, NULL); */
   }
 }
 
