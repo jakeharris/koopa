@@ -3,7 +3,12 @@
 
 #include "job.h"
 
-#include <string>
+#include <string.h>
+#include <stdio.h>
+#include <iostream>
+#include <signal.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 namespace koopa {
   /* Set koopa as current shell.

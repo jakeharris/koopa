@@ -1,31 +1,17 @@
-#include "koopa.h"
+#include "koopa.h" 
 
-#include <unistd.h>
+using namespace koopa; 
 
-using namespace koopa;
-
-pid_t shell_pgid;
-struct termios shell_tmodes;
-int shell_terminal;
+pid_t shell_pgid; 
+struct termios shell_tmodes; 
+int shell_terminal; 
 int shell_is_interactive;
+ 
+void koopa::init_shell() { 
 
-int main() {
-  init_shell();
+  /* See if we are running interactively.  */ 
 
-  char *argv[];
-  std::getline (std::cin, argv);
-
-  for(int x = 0; x < argv.size(); x++) {
-     std::cout << argv[x] << std::endl;
-  } 
-
-  return 0;
-}
-
-void init_shell() {
-     
-  /* See if we are running interactively.  */
-  shell_terminal = STDIN_FILENO;
+  shell_terminal = STDIN_FILENO; 
   shell_is_interactive = isatty (shell_terminal);
      
   if (shell_is_interactive) {
@@ -56,7 +42,22 @@ void init_shell() {
   }
 }
 
-void launch_args(string args) {
+int main() {
+  init_shell();
+
+  std::string argv;
+
+  std::cout << "koopa$ ";
+  std::getline(std::cin, argv);
+
+  for(int x = 0; x < argv.size(); x++) {
+     std::cout << argv[x] << std::endl;
+  } 
+
+  return 0;
+}
+
+void launch_args(std::string args) {
 
 }
 
