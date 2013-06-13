@@ -21,7 +21,7 @@ namespace koopa {
   /* Divide args into job(s).
    * Execute args.
    */
-  void launch_args(std::string args);
+  void launch_args();
 
   /* Divide job into process(es).
    * Execute job.

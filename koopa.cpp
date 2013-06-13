@@ -44,21 +44,24 @@ void koopa::init_shell() {
 
 int main() {
   init_shell();
-
-  std::string argv;
-
-  std::cout << "koopa$ ";
-  std::getline(std::cin, argv);
-
-  for(int x = 0; x < argv.size(); x++) {
-     std::cout << argv[x] << std::endl;
-  } 
+  
+  launch_args();
 
   return 0;
 }
 
-void launch_args(std::string args) {
+void koopa::launch_args() {
+  std::string argv = "";
 
+  while(argv.substr(0, 4) != "exit"){
+
+    std::cout << "koopa$ ";
+    std::getline(std::cin, argv);
+
+    for(int x = 0; x < argv.size(); x++) {
+       std::cout << argv[x] << std::endl;
+    } 
+  }
 }
 
 void launch_job(job j) {
