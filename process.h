@@ -1,6 +1,8 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
+#include <sys/types.h>
+
 namespace koopa {
   /* currently using the GNU basic shell tutorial to get through the baby steps */
 

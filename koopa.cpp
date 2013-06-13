@@ -1,6 +1,6 @@
 #include "koopa.h"
-#include <sys/types.h>
-#include <termios.h>
+#include "job.h"
+
 #include <unistd.h>
 
 using namespace koopa;
@@ -14,10 +14,10 @@ int main() {
   init_shell();
 
   char *argv[];
-  getline (cin, argv);
+  std::getline (std::cin, argv);
 
-  for(int x = 0; x < argv.size(); x++){
-     cout << argv[x] << endl;
+  for(int x = 0; x < argv.size(); x++) {
+     std::cout << argv[x] << std::endl;
   } 
 
   return 0;
@@ -44,8 +44,7 @@ void init_shell() {
      
     /* Put ourselves in our own process group.  */
     shell_pgid = getpid ();
-    if (setpgid (shell_pgid, shell_pgid) < 0)
-    {
+    if (setpgid (shell_pgid, shell_pgid) < 0) {
        perror ("Couldn't put the shell in its own process group");
        exit (1);
     }
@@ -56,4 +55,16 @@ void init_shell() {
     /* Save default terminal attributes for shell.  */
     tcgetattr (shell_terminal, &shell_tmodes);
   }
+}
+
+void launch_args(string args) {
+
+}
+
+void launch_job(job job) {
+
+}
+
+void launch_process(process process) {
+
 }

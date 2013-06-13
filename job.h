@@ -1,6 +1,11 @@
 #ifndef JOB_H
 #define JOB_H
 
+#include "process.h"
+
+#include <sys/types.h>
+#include <termios.h>
+
 namespace koopa {
   /* A job is a pipeline of processes.  */
   typedef struct job {
