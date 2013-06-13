@@ -30,6 +30,11 @@ To-Do List
 - Grab the return value of a command and put it somewhere.
 - Reorder jobs based on the location and implications of the piping and redirect operators.
 
+Coding Standards
+====
+- Use two spaces instead of tabs.
+- Use C-style comments (eg. /* */)
+- Open curly braces do not get their own lines.
 
 Assignment Handout
 =====
