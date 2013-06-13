@@ -53,12 +53,37 @@ int main() {
 }
 
 void koopa::launch_args() {
-  std::string curr = "";
+  const std::string KOOPA_SHELL = "koopa$ ";
+  const std::string EXIT_CMD = "exit";
+  const int MAX_WORDS = 100000;
+  char **argv;
+  std::string curr;
+  std::string cmd = "";
+
+  while(cmd != EXIT_CMD){
+    std::cout << KOOPA_SHELL;
+    std::getline(std::cin, curr);
+    std::istringstream line(curr);
+    int x = 0;
+    while(std::getline(line, curr, ' ')){
+      if(cmd == "") cmd = curr;
+      argv[x++] = (char*)curr.c_str();
+    }
+    for(int y = 0; y < x; y++) {
+      std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
+    }
+    std::cout << argv[0] << " == exit: " << (argv[0] == "exit") << std::endl;
+  }
+
+
+
+
+  /*std::string curr = "";
   std::string argv = "";
   std::string cmd_s = "";
-  const char* cmd = "";
+  const char* cmd = "";*/
 
-  while(cmd_s.substr(0, 4) != "exit"){
+  /*while(cmd_s.substr(0, 4) != "exit"){
     argv = "";
     cmd = "";
     std::cout << "koopa$ ";
@@ -73,9 +98,9 @@ void koopa::launch_args() {
     }
     for(int x = 0; x < argv.size(); x++){
       std::cout << argv[x] << std::endl;
-    }
+    }*/
     /* execv(cmd, NULL); */
-  }
+  
 }
 
 void launch_job(job j) {
