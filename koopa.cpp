@@ -1,5 +1,4 @@
 #include "koopa.h"
-#include "job.h"
 
 #include <unistd.h>
 
@@ -61,10 +60,10 @@ void launch_args(string args) {
 
 }
 
-void launch_job(job job) {
+void launch_job(job j) {
 
 }
 
-void launch_process(process process) {
+void launch_process(process p) {
 
 }

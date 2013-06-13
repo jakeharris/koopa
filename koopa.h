@@ -1,6 +1,10 @@
 #ifndef KOOPA_H
 #define KOOPA_H
 
+#include "job.h"
+
+#include <string>
+
 namespace koopa {
   /* Set koopa as current shell.
    * Take control of terminal.
@@ -12,7 +16,7 @@ namespace koopa {
   /* Divide args into job(s).
    * Execute args.
    */
-  void launch_args(string args);
+  void launch_args(std::string args);
 
   /* Divide job into process(es).
    * Execute job.
