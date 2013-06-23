@@ -23,7 +23,6 @@ koopa is an exercise in fully understanding shell programs like /bin/bash. As su
 
 To-Do List
 =====
-- Take in a string of parameters
 - Split string, delimited by spaces, into substrings, and store those in a data structure of a length determined at run-time
 - Create a "job" data structure that runs one command and passes in all the relevant parameters
 - Using the split string, create a series of jobs, connectable via the & operator.
