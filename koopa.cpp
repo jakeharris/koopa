@@ -54,7 +54,7 @@ int main() {
 
 void koopa::launch_args() {
   const std::string KOOPA_SHELL = "koopa$ ";
-  const std::string EXIT_CMD = "exit";
+  const std::string EXIT_CMD = "exit\0";
   const int MAX_WORDS = 100000;
   char **argv;
   std::string curr;
@@ -66,9 +66,16 @@ void koopa::launch_args() {
     std::istringstream line(curr);
     int x = 0;
     while(std::getline(line, curr, ' ')){
+      x++;
+    }
+    argv = new char*[x];
+    x = 0; line.str(""); line.clear(); line.str(curr);
+    while(std::getline(line, curr, ' ')){
       if(cmd == "") cmd = curr;
       argv[x++] = (char*)curr.c_str();
+      std::cout << "curr: " << curr << std::endl;
     }
+    std::cout << "Test: x = " << x << std::endl;
     for(int y = 0; y < x; y++) {
       std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
     }
