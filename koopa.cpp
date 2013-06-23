@@ -74,39 +74,15 @@ void koopa::launch_args() {
     while(std::getline(line, curr, ' ')){
       if(cmd == "") cmd = curr;
       argv[x++] = (char*)curr.c_str();
+      
+      for(int y = 0; y < x; y++) {
+        std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
+      }
     }
     for(int y = 0; y < x; y++) {
       std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
     }
-    std::cout << argv[0] << " == exit: " << (argv[0] == EXIT_CMD) << std::endl;
   }
-
-
-
-
-  /*std::string curr = "";
-  std::string argv = "";
-  std::string cmd_s = "";
-  const char* cmd = "";*/
-
-  /*while(cmd_s.substr(0, 4) != "exit"){
-    argv = "";
-    cmd = "";
-    std::cout << "koopa$ ";
-    std::getline(std::cin, curr);
-    std::istringstream line(curr);
-    while(std::getline(line, curr, ' ')){
-      if(cmd == "" || cmd == NULL){
-        cmd = (char*)curr.c_str();
-        cmd_s = curr;
-      }
-      argv += curr + " ";
-    }
-    for(int x = 0; x < argv.size(); x++){
-      std::cout << argv[x] << std::endl;
-    }*/
-    /* execv(cmd, NULL); */
-  
 }
 
 void launch_job(job j) {
