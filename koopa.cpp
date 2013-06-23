@@ -66,19 +66,26 @@ void koopa::launch_args() {
     std::getline(std::cin, currLine);
     std::istringstream line(currLine);
     int x = 0;
+    /* Sets the value for x so that we can get an array that is the size of
+       the number of input words */
     while(std::getline(line, curr, ' ')){
       x++;
     }
+    /* Declares the new argument array the size of x */
     argv = new char*[x];
+    /* clears the values of x and the string buffer */
     x = 0; line.str(""); line.clear(); line.str(currLine); cmd = "";
+    /* Loads the words in the input string into the most recently created array */
     while(std::getline(line, curr, ' ')){
       if(cmd == "") cmd = curr;
-      argv[x++] = (char*)curr.c_str();
+      argv[x] = strdup((char*)curr.c_str());
       
       for(int y = 0; y < x; y++) {
         std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
       }
+      x++;
     }
+    /* Prints the contents of the loaded array */
     for(int y = 0; y < x; y++) {
       std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
     }
