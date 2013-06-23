@@ -60,6 +60,7 @@ void koopa::launch_args() {
   std::string curr;
   std::string currLine;
   std::string cmd = "";
+  struct process p;
 
   while(cmd != EXIT_CMD){
     std::cout << KOOPA_SHELL;
@@ -73,22 +74,25 @@ void koopa::launch_args() {
     x = 0; line.str(""); line.clear(); line.str(currLine); cmd = "";
     while(std::getline(line, curr, ' ')){
       if(cmd == "") cmd = curr;
+      if(cmd == EXIT_CMD) continue;
       argv[x++] = (char*)curr.c_str();
-      
-      for(int y = 0; y < x; y++) {
-        std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
-      }
     }
-    for(int y = 0; y < x; y++) {
-      std::cout << "argv[" << y << "]: " << argv[y] << std::endl;
+    pid_t pid = fork();
+    if(pid == 0){
+      p.argv = argv;
+      launch_process(p);
+    }
+    else if (pid < 0 ) {
+      std::cout << "Couldn't properly fork." << std::endl;
+      exit(1);
+    }
+    else {
+      p.pid = pid;
     }
   }
 }
 
-void launch_job(job j) {
-
-}
-
-void launch_process(process p) {
-
+void koopa::launch_process(process p) {
+  execvp(p.argv[0], p.argv);
+  exit(0);
 }
