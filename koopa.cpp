@@ -83,7 +83,7 @@ void koopa::launch_args() {
       argv[x++] = strdup((char*)curr.c_str());
     }
     pid_t pid = fork();
-    if(pid == 0){
+    if(pid == 0) {
       p.argv = argv;
       launch_process(p);
     }
@@ -98,6 +98,8 @@ void koopa::launch_args() {
 }
 
 void koopa::launch_process(process p) {
-  execvp(p.argv[0], p.argv);
+  execvp (p.argv[0], p.argv);
+  tcsetpgrp (shell_terminal, p.pid);
   exit(0);
+  tcsetpgrp (shell_terminal, shell_pgid);
 }
