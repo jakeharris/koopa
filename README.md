@@ -73,7 +73,7 @@ First, test that your program can start up simple programs and pass parameters t
 
 Your program should not crash, no matter how weird the input. For example, suppose that the input has zero-value characters (bytes) or lines that have 1,000,000 characters? As a result, you may not be able to use the input routines that first occur to you.
 
-To test the robustness of your program, you should run it against files that ocntain a lot of nonsense characters, so it will cause real programs not to be executed. But your program should not crash when processing them, and some sort of reasonable error message should be displayed.
+To test the robustness of your program, you should run it against files that contain a lot of nonsense characters, so it will cause real programs not to be executed. But your program should not crash when processing them, and some sort of reasonable error message should be displayed.
 
 A test list of all the commands and parameters will be given to you. Your submission must include the results of running these commands in your robust-shell.
 
