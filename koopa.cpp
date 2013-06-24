@@ -11,18 +11,17 @@ int shell_terminal;
 int shell_is_interactive;
  
 void koopa::init_shell() { 
-
-  /* See if we are running interactively.  */ 
-
+  /* See if we are running interactively. */ 
   shell_terminal = STDIN_FILENO; 
   shell_is_interactive = isatty (shell_terminal);
      
   if (shell_is_interactive) {
-  /*   Loop until we are in the foreground.*/  
+  /* Loop until we are in the foreground. */  
     while (tcgetpgrp (shell_terminal) != (shell_pgid = getpgrp ()))
       kill (- shell_pgid, SIGTTIN);
      
-    /* Ignore interactive and job-control signals.  
+    /* Ignore interactive and job-control signals. */
+    /*
     signal (SIGINT, SIG_IGN);
     signal (SIGQUIT, SIG_IGN);
     signal (SIGTSTP, SIG_IGN);
@@ -30,6 +29,7 @@ void koopa::init_shell() {
     signal (SIGTTOU, SIG_IGN);
     signal (SIGCHLD, SIG_IGN);
     */
+    
     /* Put ourselves in our own process group.*/  
     shell_pgid = getpid ();
     if (setpgid (shell_pgid, shell_pgid) < 0) {
@@ -47,7 +47,7 @@ void koopa::init_shell() {
 }
 
 int main() {
-  //init_shell();
+  init_shell();
   
   launch_args();
 
@@ -115,15 +115,6 @@ void koopa::launch_args() {
     pid_t pid = fork();
     if (pid == 0) {
       p.argv = argv;
-      int i;
-      for (i = 0; argv[i] != NULL; i++) {
-        //std::cout << "ARGV[" << i << "]: " << argv[i] << "\n";
-      }
-      std::cout << "ARGV.LENGTH: " << i << "\n";
-      std::cout << "ARGV[0]: " << argv[0] << "\n";
-      //std::cout << "ARGV[1]: " << argv[1] << "\n";
-      //std::cout << "ARGV[2]: " << argv[2] << "\n";
-      //execvp(argv[0], argv);
       launch_process(p);
     }
     else if (pid < 0) {
@@ -137,7 +128,6 @@ void koopa::launch_args() {
         std::cout << waitpidResult;
         exit(1);
       }
-      //p.pid = pid;
     }
   }
 }
