@@ -81,6 +81,9 @@ void koopa::launch_args() {
     std::copy(currLine.begin(), currLine.end(), unsplit);
     unsplit[currLine.size()] = '\0';
     
+    /* Prevent the segfault caused by pressing enter without typing a command. */
+    if (currLine == "\0") continue;
+    
     /* Split command and arguments in character array. */
     char* split = strtok(unsplit, " ");
     
@@ -98,6 +101,9 @@ void koopa::launch_args() {
     
     /* Null-terminate the double character pointer. */
     argv[args.size()] = NULL;
+    
+    /* Set cmd. */
+    cmd = argv[0];
     
     /* Change directory. */
     if(cmd == CD_CMD) {
