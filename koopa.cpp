@@ -55,15 +55,19 @@ int main() {
 void koopa::launch_args() {
   const std::string KOOPA_SHELL = "koopa$ ";
   const std::string EXIT_CMD = "exit\0";
+  const std::string CD_CMD = "cd\0";
   const int MAX_WORDS = 100000;
   char **argv;
   std::string curr;
   std::string currLine;
   std::string cmd = "";
   struct process p;
+  char hostname[128];
+
+  gethostname(hostname, sizeof hostname);
 
   while(cmd != EXIT_CMD){
-    std::cout << KOOPA_SHELL;
+    std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << "==" << KOOPA_SHELL;
     std::getline(std::cin, currLine);
     std::istringstream line(currLine);
     int x = 0;
@@ -82,6 +86,11 @@ void koopa::launch_args() {
       if(cmd == EXIT_CMD) continue;
       argv[x++] = strdup((char*)curr.c_str());
     }
+    if(cmd == CD_CMD) {
+      if(argv[1] == NULL) chdir("/");
+      else chdir(argv[1]);
+      continue;
+    }
     pid_t pid = fork();
     if(pid == 0) {
       p.argv = argv;
@@ -99,7 +108,6 @@ void koopa::launch_args() {
 
 void koopa::launch_process(process p) {
   execvp (p.argv[0], p.argv);
-  tcsetpgrp (shell_terminal, p.pid);
-  exit(0);
-  tcsetpgrp (shell_terminal, shell_pgid);
+  perror(p.argv[0]);
+  exit(1);
 }
