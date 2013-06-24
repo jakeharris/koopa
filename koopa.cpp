@@ -51,11 +51,12 @@ int main() {
 }
 
 void koopa::launch_args() {
+  /* Initialize constants. */
   const std::string KOOPA_SHELL = "koopa$ ";
   const std::string EXIT_CMD = "exit\0";
   const std::string CD_CMD = "cd\0";
-  const char HOME_DIR[8] = "/home/\0";
-  const int MAX_WORDS = 100000;
+
+  /* Allocate memory for all of our arguments and our process. */
   std::vector<char*> args;
   char **argv;
   std::string curr;
@@ -63,20 +64,12 @@ void koopa::launch_args() {
   std::string cmd = "";
   struct process p;
   char hostname[128];
-  char dirArray[7];
-  int loginLength = sizeof getlogin();
 
+  /* Get *nix hostname (machine name). */
   gethostname(hostname, sizeof hostname);
-  memcpy(dirArray, hostname, 6);
-  dirArray[6] = 0;
   
-  std::cout << "loginLength: " << loginLength << std::endl;
-
-  if(dirArray == HOME_DIR){
-    std::cout << "booooop" << std::endl;
-  }
-
   while(cmd != EXIT_CMD) {
+    /* Clear everything out from our last run, if one existed. */
     curr = "";
     currLine = "";
     args.clear();
@@ -127,19 +120,28 @@ void koopa::launch_args() {
       
     /* Case: Other. */
     } else {
+      /* Fork a new process. */
       pid_t pid = fork();
+      /* If we made a new, blank process successfully, */
       if (pid == 0) {
+        /* then attach our input arguments to the process's data and launch that onto the newly forked process. */
         p.argv = argv;
         launch_process(p);
       }
+      /* Otherwise, if we failed to make a process, */
       else if (pid < 0) {
+        /* print an error message and exit the shell. */
         std::cout << "Couldn't properly fork." << std::endl;
         exit(1);
       }
+      /* Otherwise, */
       else {
+        /* wait. */
         int waitpidResult = waitpid(pid, 0, 0);
+        /* If there is an error while waiting, */
         if (waitpidResult < 0) {
-          perror("Internal error: connot wait for child.");
+          /* then print an error message and exit the shell. */
+          perror("Internal error: cannot wait for child.");
           std::cout << waitpidResult;
           exit(1);
         }
@@ -149,6 +151,11 @@ void koopa::launch_args() {
 }
 
 void koopa::launch_process(process p) {
+  /* 
+   * Execute a program whose command is p.argv[0] and whose arguments 
+   * are the rest of the p.argv array. Then, print errors, if any, to
+   * std::cout, and exit the program.
+   */
   execvp(p.argv[0], p.argv);
   perror(p.argv[0]);
   exit(1);
