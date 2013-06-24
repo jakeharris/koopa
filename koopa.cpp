@@ -105,28 +105,34 @@ void koopa::launch_args() {
     /* Set cmd. */
     cmd = argv[0];
     
-    /* Change directory. */
-    if(cmd == CD_CMD) {
-      if(argv[1] == NULL) chdir("/");
+    /* Case: Change directory. */
+    if (cmd == CD_CMD) {
+      if (argv[1] == NULL) chdir("/");
       else chdir(argv[1]);
       continue;
-    }
-    
-    pid_t pid = fork();
-    if (pid == 0) {
-      p.argv = argv;
-      launch_process(p);
-    }
-    else if (pid < 0) {
-      std::cout << "Couldn't properly fork." << std::endl;
+      
+    /* Case: Exit. */
+    } else if (cmd == EXIT_CMD) {
       exit(1);
-    }
-    else {
-      int waitpidResult = waitpid(pid, 0, 0);
-      if (waitpidResult < 0) {
-        perror("Internal error: connot wait for child.");
-        std::cout << waitpidResult;
+      
+    /* Case: Other. */
+    } else {
+      pid_t pid = fork();
+      if (pid == 0) {
+        p.argv = argv;
+        launch_process(p);
+      }
+      else if (pid < 0) {
+        std::cout << "Couldn't properly fork." << std::endl;
         exit(1);
+      }
+      else {
+        int waitpidResult = waitpid(pid, 0, 0);
+        if (waitpidResult < 0) {
+          perror("Internal error: connot wait for child.");
+          std::cout << waitpidResult;
+          exit(1);
+        }
       }
     }
   }
