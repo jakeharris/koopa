@@ -3,6 +3,7 @@ koopa
 
 A robust shell program for Intro to OS.
 
+Tested on: TUX200.eng.auburn.edu
 Authors: Jake Harris (javakatdesign@gmail.com), Clay Miller (clay@smockle.com), Patrick Fleming (jpf0005@auburn.edu).
 
 Table of Contents:
@@ -23,10 +24,10 @@ koopa is an exercise in fully understanding shell programs like /bin/bash. As su
 
 To-Do List
 =====
-- Split string, delimited by spaces, into substrings, and store those in a data structure of a length determined at run-time
-- Create a "job" data structure that runs one command and passes in all the relevant parameters
-- Using the split string, create a series of jobs, connectable via the & operator.
-- Grab the return value of a command and put it somewhere.
+- ~~Split string, delimited by spaces, into substrings, and store those in a data structure of a length determined at run-time~~
+- ~~Create a "job" data structure that runs one command and passes in all the relevant parameters~~
+- ~~Using the split string, create a series of jobs, connectable via the & operator.~~
+- ~~Grab the return value of a command and put it somewhere.~~
 - Reorder jobs based on the location and implications of the piping and redirect operators.
 
 Coding Standards
