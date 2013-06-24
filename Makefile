@@ -4,7 +4,7 @@ CC = g++
 # Compiler flags
 CFLAGS = -c
 
-koopa: job.h process.h koopa.h koopa.cpp
+koopa: process.h koopa.h koopa.cpp
 	$(CC) koopa.cpp -o koopa
 
 clean:
