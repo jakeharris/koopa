@@ -1,6 +1,7 @@
 #include "koopa.h" 
 #include <sys/wait.h> /* wait() */
 #include <sstream>
+#include <vector>
 
 using namespace koopa; 
 
@@ -46,7 +47,7 @@ void koopa::init_shell() {
 }
 
 int main() {
-  init_shell();
+  //init_shell();
   
   launch_args();
 
@@ -58,6 +59,7 @@ void koopa::launch_args() {
   const std::string EXIT_CMD = "exit\0";
   const std::string CD_CMD = "cd\0";
   const int MAX_WORDS = 100000;
+  std::vector<char*> args;
   char **argv;
   std::string curr;
   std::string currLine;
@@ -67,46 +69,73 @@ void koopa::launch_args() {
 
   gethostname(hostname, sizeof hostname);
 
-  while(cmd != EXIT_CMD){
-    std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << "==" << KOOPA_SHELL;
+  while(cmd != EXIT_CMD) {
+    curr = "";
+    currLine = "";
+    args.clear();
+    
+    /* Display prompt. */
+    //std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << " " << KOOPA_SHELL;
+    std::cout << "$ ";
+
+    /* Get user input as a string. */
     std::getline(std::cin, currLine);
-    std::istringstream line(currLine);
-    int x = 0;
-    /* Sets the value for x so that we can get an array that is the size of
-       the number of input words */
-    while(std::getline(line, curr, ' ')){
-      x++;
+
+    /* Convert input string to character array. */
+    char* unsplit = new char[currLine.size() + 1];
+    std::copy(currLine.begin(), currLine.end(), unsplit);
+    unsplit[currLine.size()] = '\0';
+    
+    /* Split command and arguments in character array. */
+    char* split = strtok(unsplit, " ");
+    
+    /* Push arguments to argument vector. */
+    while (split != NULL) {
+      args.push_back(split);
+      split = strtok(NULL, " ");
     }
-    /* Declares the new argument array the size of x */
-    argv = new char*[x];
-    /* clears the values of x and the string buffer */
-    x = 0; line.str(""); line.clear(); line.str(currLine); cmd = "";
-    /* Loads the words in the input string into the most recently created array */
-    while(std::getline(line, curr, ' ')){
-      if(cmd == "") cmd = curr;
-      if(cmd == EXIT_CMD) continue;
-      argv[x++] = strdup((char*)curr.c_str());
+    
+    /* Convert argument vector to double character pointer. */
+    argv = new char*[args.size() + 1];
+    for (int i = 0; i < args.size(); i++) {
+      argv[i] = args[i];
     }
+    
+    /* Null-terminate the double character pointer. */
+    argv[args.size()] = NULL;
+    
+    /* Change directory. */
     if(cmd == CD_CMD) {
       if(argv[1] == NULL) chdir("/");
       else chdir(argv[1]);
       continue;
     }
+    
+    std::cout << "CURRLINE: " << currLine << "\n";
     pid_t pid = fork();
-    if(pid == 0) {
+    if (pid == 0) {
       p.argv = argv;
+      int i;
+      for (i = 0; argv[i] != NULL; i++) {
+        //std::cout << "ARGV[" << i << "]: " << argv[i] << "\n";
+      }
+      std::cout << "ARGV.LENGTH: " << i << "\n";
+      std::cout << "ARGV[0]: " << argv[0] << "\n";
+      //std::cout << "ARGV[1]: " << argv[1] << "\n";
+      //std::cout << "ARGV[2]: " << argv[2] << "\n";
+      //execvp(argv[0], argv);
       launch_process(p);
     }
-    else if (pid < 0 ) {
+    else if (pid < 0) {
       std::cout << "Couldn't properly fork." << std::endl;
       exit(1);
     }
     else {
       int waitpidResult = waitpid(pid, 0, 0);
-      if (waitpidResult < 0){
-      perror("Internal error: connot wait for child.");
-      std::cout << waitpidResult;
-      exit(1);
+      if (waitpidResult < 0) {
+        perror("Internal error: connot wait for child.");
+        std::cout << waitpidResult;
+        exit(1);
       }
       //p.pid = pid;
     }
@@ -114,7 +143,7 @@ void koopa::launch_args() {
 }
 
 void koopa::launch_process(process p) {
-  execvp (p.argv[0], p.argv);
+  execvp(p.argv[0], p.argv);
   perror(p.argv[0]);
   exit(1);
 }
