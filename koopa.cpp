@@ -52,7 +52,7 @@ int main() {
 
 void koopa::launch_args() {
   /* Initialize constants. */
-  const std::string KOOPA_SHELL = "koopa$ ";
+  const std::string KOOPA_SHELL = "$ ";
   const std::string EXIT_CMD = "exit\0";
   const std::string CD_CMD = "cd\0";
 
@@ -62,11 +62,8 @@ void koopa::launch_args() {
   std::string curr;
   std::string currLine;
   std::string cmd = "";
+  bool isForegroundProcess = true;
   struct process p;
-  char hostname[128];
-
-  /* Get *nix hostname (machine name). */
-  gethostname(hostname, sizeof hostname);
   
   while(cmd != EXIT_CMD) {
     /* Clear everything out from our last run, if one existed. */
@@ -75,7 +72,7 @@ void koopa::launch_args() {
     args.clear();
     
     /* Display prompt. */
-    std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << " " << KOOPA_SHELL;
+    std::cout << getcwd(NULL, 0) << " " << getlogin() << KOOPA_SHELL;
 
     /* Get user input as a string. */
     std::getline(std::cin, currLine);
@@ -108,7 +105,13 @@ void koopa::launch_args() {
     
     /* Set cmd. */
     cmd = argv[0];
-    
+
+    /* Forbid waiting if we found an ampersand as the last word in argv. */
+    isForegroundProcess = !(std::string(argv[args.size() - 1]).compare("&") == 0);
+    if(!isForegroundProcess) {
+      argv[args.size() - 1] = NULL;
+    }
+
     /* Case: Change directory. */
     if (cmd == CD_CMD) {
       if (argv[1] == NULL) chdir("/");
@@ -135,7 +138,7 @@ void koopa::launch_args() {
         exit(1);
       }
       /* Otherwise, */
-      else {
+      else if (isForegroundProcess){
         /* wait. */
         int waitpidResult = waitpid(pid, 0, 0);
         /* If there is an error while waiting, */
