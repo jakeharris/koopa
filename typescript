@@ -1,0 +1,91 @@
+Script started on Mon 24 Jun 2013 06:39:48 PM CDT
+[?1034hbash-4.1$ ./koopa
+/home/u1/jpf0005/Documents/koopa jpf0005$ ./testfile.sh
+1 drwxr-xr-x. 4 jpf0005 ugrad 1024 Jun 24 18:39 ./
+total 378
+drwxr-xr-x. 2 jpf0005 ugrad    96 Jun 23 14:31 design-docs/
+-rwxr-xr-x. 1 jpf0005 ugrad 30294 Jun 24 18:39 koopa*
+-rw-r--r--. 1 jpf0005 ugrad  4585 Jun 24 18:37 koopa.cpp
+-rw-r--r--. 1 jpf0005 ugrad   585 Jun 24 17:58 koopa.h
+-rw-r--r--. 1 jpf0005 ugrad   138 Jun 24 17:58 Makefile
+-rw-r--r--. 1 jpf0005 ugrad   522 Jun 23 18:59 process.h
+-rw-r--r--. 1 jpf0005 ugrad  5131 Jun 24 17:58 README.md
+-rw-r--r--. 1 jpf0005 ugrad   350 Jun 22 22:02 resources.md
+-rwxr-xr-x. 1 jpf0005 ugrad   880 Jun 23 21:28 testfile.sh*
+-rw-r--r--. 1 jpf0005 ugrad     0 Jun 24 18:39 typescript
+           system boot  2013-06-22 20:25
+           run-level 5  2013-06-22 20:25
+LOGIN      tty3         2013-06-22 20:25              2476 id=3
+LOGIN      tty2         2013-06-22 20:25              2474 id=2
+LOGIN      tty5         2013-06-22 20:25              2481 id=5
+LOGIN      tty6         2013-06-22 20:25              2483 id=6
+LOGIN      tty4         2013-06-22 20:25              2478 id=4
+jpf0005  + tty1         2013-06-22 20:25  old         2647 (:0)
+jpf0005  + pts/0        2013-06-24 17:58   .         31849 (:0.0)
+           pts/1        2013-06-23 21:02                 0 id=/1    term=0 exit=0
+           pts/2        2013-06-23 21:29                 0 id=/2    term=0 exit=0
+           pts/3        2013-06-23 21:29                 0 id=/3    term=0 exit=0
+jpf0005  + pts/1        2013-06-24 18:39   .         32426
+whoami (GNU coreutils) 8.4
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Richard Mlynarik.
+ls: cannot access ue*hv@ccy#ky^hbg%: No such file or directory
+who: unrecognized option '---h'
+Try `who --help' for more information.
+mkdir: missing operand
+Try `mkdir --help' for more information.
+./testfile.sh: line 13: cd: cse3500: No such file or directory
+mkdir: created directory `misc'
+total 378
+drwxr-xr-x. 2 jpf0005 ugrad    96 Jun 24 18:40 cse3500test
+drwxr-xr-x. 2 jpf0005 ugrad    96 Jun 23 14:31 design-docs
+-rwxr-xr-x. 1 jpf0005 ugrad 30294 Jun 24 18:39 koopa
+-rw-r--r--. 1 jpf0005 ugrad  4585 Jun 24 18:37 koopa.cpp
+-rw-r--r--. 1 jpf0005 ugrad   585 Jun 24 17:58 koopa.h
+-rw-r--r--. 1 jpf0005 ugrad   138 Jun 24 17:58 Makefile
+drwxr-xr-x. 2 jpf0005 ugrad    96 Jun 24 18:40 misc
+-rw-r--r--. 1 jpf0005 ugrad   522 Jun 23 18:59 process.h
+-rw-r--r--. 1 jpf0005 ugrad  5131 Jun 24 17:58 README.md
+-rw-r--r--. 1 jpf0005 ugrad   350 Jun 22 22:02 resources.md
+-rwxr-xr-x. 1 jpf0005 ugrad   880 Jun 23 21:28 testfile.sh
+-rw-r--r--. 1 jpf0005 ugrad     0 Jun 24 18:39 typescript
+tux200.eng.auburn.edu
+total 3916
+drwxr-xr-x. 4 jpf0005 ugrad      96 Jun 23 17:22 etc/
+drwxr-xr-x. 5 jpf0005 ugrad    1024 Jun 24 18:40 koopa/
+-rw-r--r--. 1 jpf0005 ugrad 4008060 Jun 22 20:48 koopa-master.zip
+mv: cannot stat `cse3500test': No such file or directory
+chmod: cannot access `comp3500test': No such file or directory
+total 3916
+   1 koopa/     0 etc/	3915 koopa-master.zip
+./testfile.sh: line 23: print: command not found
+eth0      Link encap:Ethernet  HWaddr 24:BE:05:12:27:FC  
+          inet addr:131.204.14.200  Bcast:131.204.14.255  Mask:255.255.255.0
+          inet6 addr: fe80::26be:5ff:fe12:27fc/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1497191 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1196108 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:467959562 (446.2 MiB)  TX bytes:1116198246 (1.0 GiB)
+          Interrupt:20 Memory:fb000000-fb020000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:492 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:492 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:31320 (30.5 KiB)  TX bytes:31320 (30.5 KiB)
+
+./testfile.sh: line 34: unexpected EOF while looking for matching `''
+./testfile.sh: line 54: syntax error: unexpected end of file
+/home/u1/jpf0005/Documents/koopa jpf0005$ exit
+bash-4.1$ exit
+exit
+
+Script done on Mon 24 Jun 2013 06:40:08 PM CDT
