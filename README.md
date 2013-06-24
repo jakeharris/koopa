@@ -3,8 +3,9 @@ koopa
 
 A robust shell program for Intro to OS.
 
-Tested on: TUX200.eng.auburn.edu
-Authors: Jake Harris (javakatdesign@gmail.com), Clay Miller (clay@smockle.com), Patrick Fleming (jpf0005@auburn.edu).
+**Tested on**: TUX200.eng.auburn.edu
+
+**Authors**: Jake Harris (javakatdesign@gmail.com), Clay Miller (clay@smockle.com), Patrick Fleming (jpf0005@auburn.edu).
 
 Table of Contents:
 =====
