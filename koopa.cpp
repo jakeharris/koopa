@@ -1,7 +1,4 @@
-#include "koopa.h" 
-#include <sys/wait.h> /* wait() */
-#include <sstream>
-#include <vector>
+#include "koopa.h"
 
 using namespace koopa; 
 
@@ -48,7 +45,6 @@ void koopa::init_shell() {
 
 int main() {
   init_shell();
-  
   launch_args();
 
   return 0;
@@ -75,8 +71,7 @@ void koopa::launch_args() {
     args.clear();
     
     /* Display prompt. */
-    //std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << " " << KOOPA_SHELL;
-    std::cout << "$ ";
+    std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << " " << KOOPA_SHELL;
 
     /* Get user input as a string. */
     std::getline(std::cin, currLine);
@@ -111,7 +106,6 @@ void koopa::launch_args() {
       continue;
     }
     
-    std::cout << "CURRLINE: " << currLine << "\n";
     pid_t pid = fork();
     if (pid == 0) {
       p.argv = argv;

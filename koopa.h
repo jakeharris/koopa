@@ -1,7 +1,7 @@
 #ifndef KOOPA_H
 #define KOOPA_H
 
-#include "job.h"
+#include "process.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -9,6 +9,10 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h> /* wait() */
+#include <sstream>
+#include <vector>
+#include <termios.h>
 
 namespace koopa {
   /* Set koopa as current shell.
@@ -23,18 +27,8 @@ namespace koopa {
    */
   void launch_args();
 
-  /* Divide job into process(es).
-   * Execute job.
-   */
-  void launch_job(job);
-
   /* Execute process. */
   void launch_process(process);
-
-  /* Set default shell as current shell.
-   * Relinquish control of terminal.
-   */
-  /* void quit_shell(); */
 }
 
 #endif
