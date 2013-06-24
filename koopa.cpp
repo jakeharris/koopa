@@ -57,6 +57,7 @@ void koopa::launch_args() {
   const std::string KOOPA_SHELL = "koopa$ ";
   const std::string EXIT_CMD = "exit\0";
   const std::string CD_CMD = "cd\0";
+  const char HOME_DIR[8] = "/home/\0";
   const int MAX_WORDS = 100000;
   char **argv;
   std::string curr;
@@ -64,8 +65,18 @@ void koopa::launch_args() {
   std::string cmd = "";
   struct process p;
   char hostname[128];
+  char dirArray[7];
+  int loginLength = sizeof getlogin();
 
   gethostname(hostname, sizeof hostname);
+  memcpy(dirArray, hostname, 6);
+  dirArray[6] = 0;
+  
+  std::cout << "loginLength: " << loginLength << std::endl;
+
+  if(dirArray == HOME_DIR){
+    std::cout << "booooop" << std::endl;
+  }
 
   while(cmd != EXIT_CMD){
     std::cout << getlogin() << "@" << hostname << ":" << getcwd(NULL, 0) << "==" << KOOPA_SHELL;
@@ -92,6 +103,7 @@ void koopa::launch_args() {
       else chdir(argv[1]);
       continue;
     }
+    if(cmd == EXIT_CMD) continue;
     pid_t pid = fork();
     if(pid == 0) {
       p.argv = argv;
